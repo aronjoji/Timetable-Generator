@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timetable</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light grey background */
+        }
+        .table th, .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .table th {
+            background-color: #ffc107; /* Orange color */
+            color: #fff; /* White text */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        {% if message %}
+        <h2>{{ message }}</h2>
+        {% else %}
+        <h1 class="text-center mb-2">Timetable</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Day/Period</th>
+                        <th>Period 1</th>
+                        <th>Period 2</th>
+                        <th>Period 3</th>
+                        <th>Period 4</th>
+                        <th>Period 5</th>
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for periods in timetable %}
+                    <tr>
+                        <td style="background-color: #ffc107; color:white;"><b>Day {{ forloop.counter }}</b></td>
+                        {% for period in periods %}
+                        <td><span style="color:rgb(192, 126, 3);">{{ period.subject }}</span>   <b>({{ period.teacher }})</b></td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% endif %}
+
+        <br>
+
+        <button id="takeScreenshotBtn" class="btn btn-success">Download Timetable</button>
+    
+        <br>
+        <br>
+        <br>
+        
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            document.getElementById('takeScreenshotBtn').addEventListener('click', function() {
+                window.print();
+            });
+        </script>
+</body>
+</html>
